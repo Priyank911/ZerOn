@@ -69,8 +69,8 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <span>DEVELOPING SOLUTIONS</span><br />
-              <span>FOR <span className="gradient-text">WEB3 INFRASTRUCTURE</span></span>
+              <span>POWER UP WITH</span><br />
+              <span>NEXT-GEN<span className="gradient-text">CYBER DEFENSE</span></span>
             </motion.h1>
 
             <motion.div 
