@@ -70,7 +70,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <span>POWER UP WITH</span><br />
-              <span>NEXT-GEN<span className="gradient-text">CYBER DEFENSE</span></span>
+              <span>NEXT-GEN <span className="gradient-text">CYBER DEFENSE</span></span>
             </motion.h1>
 
             <motion.div 
