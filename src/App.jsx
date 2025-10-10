@@ -9,6 +9,7 @@ import DualAudience from './components/DualAudience'
 import LiveDemo from './components/LiveDemo'
 import Footer from './components/Footer'
 import Roadmap from './components/Roadmap'
+import Contact from './components/Contact'
 import './App.css'
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/roadmap" element={<Roadmap />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </Router>
     </div>

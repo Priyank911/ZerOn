@@ -8,11 +8,11 @@ const Navigation = () => {
   const location = useLocation()
   
   const navItems = [
-    { name: '[ZERON TECHNOLOGIES]', href: '#features', type: 'anchor' },
+    { name: '[ZERON TECHNOLOGIES]', href: '#', type: 'anchor' },
     { name: '[ZERON.EXE]', href: '#demo', type: 'anchor' },
     { name: '[ZERON ROADMAP]', href: '/roadmap', type: 'route' },
     { name: '[ZERON FOUNDATION]', href: '#dual-audience', type: 'anchor' },
-    { name: '[CONTACT US]', href: '#footer', type: 'anchor' }
+    { name: '[CONTACT US]', href: '/contact', type: 'route' }
   ]
 
   const handleNavClick = (e, item) => {
@@ -48,7 +48,7 @@ const Navigation = () => {
         <span className="banner-dot">●</span>
         <span className="banner-text">Interested in learning more?</span>
         <span className="banner-arrow">→</span>
-        <a href="#footer" className="banner-link">Contact us here</a>
+        <a href="/contact" className="banner-link">Contact us here</a>
       </motion.div>
       
       <div className="nav-container">
