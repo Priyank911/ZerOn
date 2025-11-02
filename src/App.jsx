@@ -14,6 +14,7 @@ import Footer from './components/Footer'
 import Roadmap from './components/Roadmap'
 import Contact from './components/Contact'
 import FaceScan from './components/FaceScan'
+import PlanSelection from './components/PlanSelection'
 import './App.css'
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/identity" element={<IdentityPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/face-scan" element={<FaceScan />} />
+          <Route path="/plan-selection" element={<PlanSelection />} />
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

@@ -23,6 +23,7 @@ import { getUUIDFromURL } from '../utils/uuid'
 import ProfileModal from './ProfileModal'
 import NotificationPanel from './NotificationPanel'
 import SettingsPage from './SettingsPage'
+import PlanWarningBanner from './PlanWarningBanner'
 import './Dashboard.css'
 
 const Dashboard = () => {
@@ -30,6 +31,7 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [selectedPlan, setSelectedPlan] = useState('basic')
   const [userData, setUserData] = useState(null)
+  const [hasPlan, setHasPlan] = useState(false)
   const [profileModalOpen, setProfileModalOpen] = useState(false)
   const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [searchParams] = useSearchParams()
@@ -77,6 +79,16 @@ const Dashboard = () => {
           console.log('User data loaded from Firebase:', result.user)
           setUserData(result.user)
           setSelectedPlan(result.user.account?.plan || 'basic')
+          
+          // Check if user has selected a plan
+          if (result.user.plan && result.user.plan.type) {
+            setHasPlan(true)
+            console.log('User plan:', result.user.plan)
+            console.log('Wallet address:', result.user.walletAddress)
+          } else {
+            setHasPlan(false)
+          }
+          
           dataLoaded = true
           
           // Check if profile is complete
@@ -103,6 +115,14 @@ const Dashboard = () => {
           if (data.success && data.user) {
             setUserData(data.user)
             setSelectedPlan(data.user.account?.plan || 'basic')
+            
+            // Check if user has selected a plan
+            if (data.user.plan && data.user.plan.type) {
+              setHasPlan(true)
+            } else {
+              setHasPlan(false)
+            }
+            
             console.log('User data loaded from API:', data.user)
           } else {
             console.error('Failed to load user data')
@@ -272,7 +292,7 @@ const Dashboard = () => {
                         </div>
                         <div className="profile-status">
                           <Sparkles size={10} />
-                          {selectedPlan === 'pro' ? 'Pro Plan' : 'Basic Plan'}
+                          {userData?.plan?.name ? `${userData.plan.name} Plan` : (selectedPlan === 'pro' ? 'Pro Plan' : 'Free Plan')}
                         </div>
                       </div>
                     )}
@@ -305,6 +325,9 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <main className={`dashboard-main ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+          {/* Plan Warning Banner - Show if no plan selected */}
+          {!hasPlan && <PlanWarningBanner userId={userId} />}
+          
           <AnimatePresence mode="wait">
             {/* Scan Tab */}
             {activeTab === 'scan' && (
@@ -316,7 +339,7 @@ const Dashboard = () => {
                 transition={{ duration: 0.3 }}
                 className="dashboard-content-section"
               >
-                <NewScan />
+                <NewScan userId={userId} />
               </motion.div>
             )}
 
