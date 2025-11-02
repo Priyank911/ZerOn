@@ -140,41 +140,41 @@ const Dashboard = () => {
     loadUserData()
   }, [userId, navigate])
 
-  // Validate session on mount
-  useEffect(() => {
-    const validateSession = async () => {
-      const sessionId = localStorage.getItem('sessionId')
-      const storedUserId = localStorage.getItem('userId')
-      
-      if (!sessionId || !storedUserId || storedUserId !== userId) {
-        console.log('Invalid or missing session')
-        // Redirect to face scan if session invalid
-        navigate('/face-scan')
-        return
-      }
-
-      try {
-        const response = await fetch(`/api/session/validate`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId, userId })
-        })
-        
-        const data = await response.json()
-        
-        if (!data.success || !data.valid) {
-          console.log('Session validation failed')
-          localStorage.removeItem('sessionId')
-          localStorage.removeItem('userId')
-          navigate('/face-scan')
-        }
-      } catch (error) {
-        console.error('Session validation error:', error)
-      }
-    }
-
-    validateSession()
-  }, [userId, navigate])
+  // Validate session on mount - Disabled for now (API not implemented)
+  // useEffect(() => {
+  //   const validateSession = async () => {
+  //     const sessionId = localStorage.getItem('sessionId')
+  //     const storedUserId = localStorage.getItem('userId')
+  //     
+  //     if (!sessionId || !storedUserId || storedUserId !== userId) {
+  //       console.log('Invalid or missing session')
+  //       // Redirect to face scan if session invalid
+  //       navigate('/face-scan')
+  //       return
+  //     }
+  //
+  //     try {
+  //       const response = await fetch(`/api/session/validate`, {
+  //         method: 'POST',
+  //         headers: { 'Content-Type': 'application/json' },
+  //         body: JSON.stringify({ sessionId, userId })
+  //       })
+  //       
+  //       const data = await response.json()
+  //       
+  //       if (!data.success || !data.valid) {
+  //         console.log('Session validation failed')
+  //         localStorage.removeItem('sessionId')
+  //         localStorage.removeItem('userId')
+  //         navigate('/face-scan')
+  //       }
+  //     } catch (error) {
+  //       console.error('Session validation error:', error)
+  //     }
+  //   }
+  //
+  //   validateSession()
+  // }, [userId, navigate])
 
   return (
     <div className="dashboard-wrapper">
@@ -353,7 +353,7 @@ const Dashboard = () => {
                 transition={{ duration: 0.3 }}
                 className="dashboard-content-section"
               >
-                <ScanHistory />
+                <ScanHistory userId={userId} />
               </motion.div>
             )}
 
