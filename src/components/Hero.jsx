@@ -27,6 +27,10 @@ const Hero = () => {
     }
   }
 
+  const handleStartHunting = () => {
+    window.location.href = '/face-scan'
+  }
+
   const terminalCommands = [
     'nmap -sS -O target.domain.com',
     'sqlmap -u "http://target.com/page?id=1" --dbs',
@@ -106,10 +110,11 @@ const Hero = () => {
             >
               <motion.button 
                 className="btn-primary"
+                onClick={handleStartHunting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                BUILD NOW
+                START HUNTING
               </motion.button>
               <motion.button 
                 className="btn-secondary"
@@ -123,7 +128,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                JOIN OUR COMMUNITY
+                HOW IT WORKS
               </motion.button>
               <motion.div className="play-button">
                 <span>▶</span>

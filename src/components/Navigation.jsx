@@ -8,7 +8,7 @@ const Navigation = () => {
   const location = useLocation()
   
   const navItems = [
-    { name: '[ZERON TECHNOLOGIES]', href: '#', type: 'anchor' },
+    { name: '[ZERON TECHNOLOGIES]', href: '', type: 'anchor' },
     { name: '[ZERON.EXE]', href: '#demo', type: 'anchor' },
     { name: '[ZERON ROADMAP]', href: '/roadmap', type: 'route' },
     { name: '[ZERON FOUNDATION]', href: '#dual-audience', type: 'anchor' },

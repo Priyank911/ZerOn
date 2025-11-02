@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   Building, 
@@ -9,12 +9,15 @@ import {
   Cpu, 
   Clock, 
   Award,
-  ArrowRight
+  ArrowRight,
+  X
 } from 'lucide-react'
 import GlitchText from './GlitchText'
 import './DualAudience.css'
 
 const DualAudience = () => {
+  const [showModal, setShowModal] = useState(false)
+
   const companyFeatures = [
     {
       icon: Shield,
@@ -212,7 +215,10 @@ const DualAudience = () => {
                     <div className="output-line">✓ Payout system active</div>
                   </div>
                   
-                  <button className="terminal-btn">
+                  <button 
+                    className="terminal-btn"
+                    onClick={() => setShowModal(true)}
+                  >
                     ./deploy-bots --start-earning
                   </button>
                 </div>
@@ -220,6 +226,37 @@ const DualAudience = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="modal-overlay" onClick={() => setShowModal(false)}>
+            <motion.div 
+              className="feature-modal"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-header">
+                <h3>Deploy Bot</h3>
+                <button 
+                  className="modal-close"
+                  onClick={() => setShowModal(false)}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              <div className="modal-content">
+                <div className="feature-coming-soon">
+                  <Bot size={32} className="feature-icon" />
+                  <h4>FEATURE COMING SOON</h4>
+                  <p>Bot deployment functionality is currently under development. Stay tuned for updates!</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
 
         {/* Partnership Section */}
         <motion.div

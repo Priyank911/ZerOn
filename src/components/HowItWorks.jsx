@@ -177,22 +177,22 @@ contract.on('VulnerabilitySubmitted', async (evidence) => {
             <div className="process-description">
               <h4>THE CORE ENTITY BEHIND THE ZERON ECOSYSTEM</h4>
               <p>
-                The ZerOn Foundation supports all ZerOn-related platforms, simplifying the 
-                Web3 development process by empowering developers with supportive tools to 
-                build. Join the ZerOn community and become a driving force in powering 
-                blockchain advancement.
+                The ZerOn Foundation supports next-generation cybersecurity platforms, 
+                revolutionizing vulnerability detection through automated security scanning 
+                and blockchain-verified bounty systems. Join the ZerOn community and become 
+                a driving force in advancing cyber defense technologies.
               </p>
             </div>
 
             <div className="process-stats">
               <div className="stat-item">
-                <div className="stat-label">BUILD, TEST YOUR</div>
-                <div className="stat-value">OWN DAPPS AT WARP SPEED</div>
+                <div className="stat-label">DETECT, SECURE YOUR</div>
+                <div className="stat-value">CYBER INFRASTRUCTURE</div>
               </div>
               
               <div className="stat-item">
-                <div className="stat-label">SMART CONTRACT</div>
-                <div className="stat-value">1000+</div>
+                <div className="stat-label">VULNERABILITIES FOUND</div>
+                <div className="stat-value">5000+</div>
               </div>
             </div>
 

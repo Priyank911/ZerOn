@@ -6,10 +6,14 @@ import Hero from './components/Hero'
 import HowItWorks from './components/HowItWorks'
 import Features from './components/Features'
 import DualAudience from './components/DualAudience'
+import Identity from './components/Identity'
+import IdentityPage from './components/IdentityPage'
+import Dashboard from './components/Dashboard'
 import LiveDemo from './components/LiveDemo'
 import Footer from './components/Footer'
 import Roadmap from './components/Roadmap'
 import Contact from './components/Contact'
+import FaceScan from './components/FaceScan'
 import './App.css'
 
 function App() {
@@ -37,6 +41,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/identity" element={<IdentityPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/face-scan" element={<FaceScan />} />
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
