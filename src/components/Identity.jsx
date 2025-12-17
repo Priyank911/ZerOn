@@ -311,7 +311,10 @@ const Identity = () => {
   }
 
   const handleEmailAuth = async () => {
-    if (!validateEmail(formData.email)) {
+    // Trim and validate email
+    const trimmedEmail = formData.email?.trim() || '';
+    
+    if (!validateEmail(trimmedEmail)) {
       setErrorMessage('Please enter a valid email address')
       return
     }
@@ -329,23 +332,26 @@ const Identity = () => {
 
     if (authMode === 'signup') {
       // Register new user
-      result = await registerWithEmail(formData.email, formData.password)
+      result = await registerWithEmail(trimmedEmail, formData.password)
       
       if (result.success) {
         setSuccessMessage(result.message)
         setOtpSent(true)
+        // Update formData with trimmed email
+        setFormData(prev => ({ ...prev, email: trimmedEmail }))
         // User needs to verify email before proceeding
       } else {
         setErrorMessage(result.error)
       }
     } else {
       // Sign in existing user
-      result = await signInWithEmail(formData.email, formData.password)
+      result = await signInWithEmail(trimmedEmail, formData.password)
       
       if (result.success) {
         setSuccessMessage('Successfully signed in!')
         setFormData(prev => ({
           ...prev,
+          email: trimmedEmail,
           fullName: result.user.displayName || prev.fullName
         }))
         setOtpVerified(result.user.emailVerified)

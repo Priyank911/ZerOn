@@ -64,7 +64,26 @@ export const signInWithGoogle = async () => {
 // Email/Password Registration
 export const registerWithEmail = async (email, password) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    // Validate inputs
+    if (!email || !password) {
+      return {
+        success: false,
+        error: 'Email and password are required.',
+        errorCode: 'auth/missing-credentials'
+      };
+    }
+
+    if (password.length < 6) {
+      return {
+        success: false,
+        error: 'Password must be at least 6 characters long.',
+        errorCode: 'auth/weak-password'
+      };
+    }
+
+    // Trim whitespace from email
+    const trimmedEmail = email.trim();
+    const userCredential = await createUserWithEmailAndPassword(auth, trimmedEmail, password);
     const user = userCredential.user;
     
     // Send email verification
@@ -89,13 +108,19 @@ export const registerWithEmail = async (email, password) => {
         errorMessage = 'This email is already registered. Please sign in instead.';
         break;
       case 'auth/invalid-email':
-        errorMessage = 'Invalid email address.';
+        errorMessage = 'Invalid email address format.';
         break;
       case 'auth/weak-password':
         errorMessage = 'Password should be at least 6 characters.';
         break;
+      case 'auth/operation-not-allowed':
+        errorMessage = 'Email/password accounts are not enabled. Please contact support.';
+        break;
+      case 'auth/network-request-failed':
+        errorMessage = 'Network error. Please check your internet connection.';
+        break;
       default:
-        errorMessage = error.message;
+        errorMessage = error.message || 'Registration failed. Please try again.';
     }
     
     return {
@@ -109,7 +134,18 @@ export const registerWithEmail = async (email, password) => {
 // Email/Password Sign In
 export const signInWithEmail = async (email, password) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    // Validate inputs
+    if (!email || !password) {
+      return {
+        success: false,
+        error: 'Email and password are required.',
+        errorCode: 'auth/missing-credentials'
+      };
+    }
+
+    // Trim whitespace from email
+    const trimmedEmail = email.trim();
+    const userCredential = await signInWithEmailAndPassword(auth, trimmedEmail, password);
     const user = userCredential.user;
     
     return {
@@ -127,20 +163,29 @@ export const signInWithEmail = async (email, password) => {
     let errorMessage = 'Sign in failed. Please try again.';
     
     switch (error.code) {
+      case 'auth/invalid-credential':
+        errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+        break;
       case 'auth/user-not-found':
-        errorMessage = 'No account found with this email.';
+        errorMessage = 'No account found with this email. Please sign up first.';
         break;
       case 'auth/wrong-password':
-        errorMessage = 'Incorrect password.';
+        errorMessage = 'Incorrect password. Please try again.';
         break;
       case 'auth/invalid-email':
-        errorMessage = 'Invalid email address.';
+        errorMessage = 'Invalid email address format.';
         break;
       case 'auth/user-disabled':
-        errorMessage = 'This account has been disabled.';
+        errorMessage = 'This account has been disabled. Please contact support.';
+        break;
+      case 'auth/too-many-requests':
+        errorMessage = 'Too many failed login attempts. Please try again later.';
+        break;
+      case 'auth/network-request-failed':
+        errorMessage = 'Network error. Please check your internet connection.';
         break;
       default:
-        errorMessage = error.message;
+        errorMessage = error.message || 'Sign in failed. Please try again.';
     }
     
     return {
